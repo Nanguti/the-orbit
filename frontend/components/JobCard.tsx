@@ -11,7 +11,7 @@ interface JobCardProps {
     location: string;
     salary: string;
     type: string;
-    posted_date: string;
+    publication_date: string;
   };
 }
 

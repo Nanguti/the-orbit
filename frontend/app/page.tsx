@@ -16,7 +16,7 @@ interface Job {
   location: string;
   salary: string;
   type: string;
-  posted_date: string;
+  publication_date: string;
 }
 
 export default function Home() {
