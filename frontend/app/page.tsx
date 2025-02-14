@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import dynamic from "next/dynamic";
 import { JobCard } from "@/components/JobCard";
 import { SearchBar } from "@/components/SearchBar";
 import { fadeIn, staggerContainer } from "@/utils/motion";
