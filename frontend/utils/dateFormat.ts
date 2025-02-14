@@ -1,4 +1,4 @@
-import { formatDistanceToNow } from "date-fns";
+import { formatDistanceToNow, format } from "date-fns";
 
 export const humanizeDate = (dateString: string) => {
   const date = new Date(dateString);
@@ -8,8 +8,8 @@ export const humanizeDate = (dateString: string) => {
 // Add other date formatting utilities as needed
 export const formatDate = (
   dateString: string,
-  format: string = "MMM dd, yyyy"
+  formatStr: string = "MMM dd, yyyy"
 ) => {
   const date = new Date(dateString);
-  return format(date, format);
+  return format(date, formatStr);
 };
