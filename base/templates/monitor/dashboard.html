@@ -1,0 +1,124 @@
+{% extends "base.html" %} {% load static %} {% block content %}
+<div class="container mt-4">
+  <h1>Job Alerts Monitor</h1>
+
+  <div class="row mt-4">
+    <!-- Job Statistics -->
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h5>Job Statistics</h5>
+        </div>
+        <div class="card-body">
+          <p>Total Jobs: <strong id="total-jobs">{{ total_jobs }}</strong></p>
+          <p>
+            New Jobs (24h):
+            <strong id="recent-jobs">{{ last_24h_jobs }}</strong>
+          </p>
+          <p>
+            Last Update: <strong id="last-update">{{ last_update }}</strong>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Industry Breakdown -->
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h5>Jobs by Industry</h5>
+        </div>
+        <div class="card-body">
+          <ul class="list-group">
+            {% for industry in jobs_by_industry %}
+            <li
+              class="list-group-item d-flex justify-content-between align-items-center"
+            >
+              {{ industry.industry }}
+              <span class="badge bg-primary rounded-pill"
+                >{{ industry.count }}</span
+              >
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <!-- Celery Tasks -->
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h5>Celery Tasks</h5>
+        </div>
+        <div class="card-body">
+          <h6>Periodic Tasks</h6>
+          <ul class="list-group">
+            {% for task in periodic_tasks %}
+            <li class="list-group-item">
+              <strong>{{ task.name }}</strong><br />
+              Schedule: {% if task.interval %} Every {{ task.interval.every }}
+              {{ task.interval.period }} {% elif task.crontab %} {{ task.crontab
+              }} {% else %} Every 5 minutes {% endif %}<br />
+              Last Run:
+              <span id="last-run">{{ task.last_run_at|default:"Never" }}</span>
+            </li>
+            {% endfor %}
+          </ul>
+
+          <h6 class="mt-4">Active Tasks</h6>
+          <div class="bg-light p-3 rounded">
+            <pre id="active-tasks">{{ active_tasks }}</pre>
+          </div>
+
+          <h6 class="mt-4">Scheduled Tasks</h6>
+          <div class="bg-light p-3 rounded">
+            <pre id="scheduled-tasks">{{ scheduled_tasks }}</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function updateDashboard() {
+    fetch("/monitor/task-status/")
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.status === "success") {
+          // Update statistics
+          document.getElementById("total-jobs").textContent =
+            data.stats.total_jobs;
+          document.getElementById("recent-jobs").textContent =
+            data.stats.recent_jobs;
+          document.getElementById("last-update").textContent = new Date(
+            data.last_check
+          ).toLocaleString();
+
+          // Update task information
+          if (data.task_info.last_run) {
+            document.getElementById("last-run").textContent = new Date(
+              data.task_info.last_run
+            ).toLocaleString();
+          }
+
+          // Update Celery task information
+          document.getElementById("active-tasks").textContent = JSON.stringify(
+            data.celery_info.active_tasks,
+            null,
+            2
+          );
+          document.getElementById("scheduled-tasks").textContent =
+            JSON.stringify(data.celery_info.scheduled_tasks, null, 2);
+        }
+      })
+      .catch((error) => console.error("Error updating dashboard:", error));
+  }
+
+  // Update every 30 seconds
+  setInterval(updateDashboard, 30000);
+</script>
+{% endblock %}

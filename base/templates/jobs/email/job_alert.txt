@@ -1,0 +1,16 @@
+New Job Matches Found!
+
+Based on your alert criteria:
+{% if criteria.industries %}Industries: {{ criteria.industries|join:", " }}{% endif %}
+{% if criteria.skills %}Skills: {{ criteria.skills|join:", " }}{% endif %}
+{% if criteria.job_titles %}Job Titles: {{ criteria.job_titles|join:", " }}{% endif %}
+{% if criteria.locations %}Locations: {{ criteria.locations|join:", " }}{% endif %}
+
+Jobs Found:
+{% for job in jobs %}
+* {{ job.title }}
+  {{ job.company }} - {{ job.location }}
+  {% if job.tech_skills %}Tech Skills: {{ job.tech_skills|join:", " }}{% endif %}
+  Link: {{ job.job_link }}
+
+{% endfor %} 

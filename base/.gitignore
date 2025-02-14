@@ -1,0 +1,80 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+env/
+*.env
+*.venv
+
+# Django stuff
+*.log
+db.sqlite3
+db.sqlite3-journal
+/media/
+staticfiles/
+*.pot
+*.pyc
+
+# Django migrations
+**/migrations/*
+!**/migrations/__init__.py
+
+# Secrets and environment variables
+.env
+.envrc
+*.pem
+
+# VSCode
+.vscode/
+
+# PyCharm
+.idea/
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# Python package files
+*.egg
+*.egg-info/
+dist/
+build/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Coverage reports
+htmlcov/
+.coverage
+.tox/
+.nox/
+.pytest_cache/
+
+# Celery
+celerybeat-schedule
+
+# MySQL/PostgreSQL
+*.sqlite3
+*.pyo
+*.db
+*.db-shm
+*.db-wal
+
+# Docker
+*.dockerignore
+docker-compose.override.yml
+
+# Node (if using frontend assets)
+node_modules/
+package-lock.json
+yarn.lock
+
+# Editor backups
+*~

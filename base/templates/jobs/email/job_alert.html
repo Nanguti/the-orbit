@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      .job-item {
+        margin-bottom: 20px;
+        padding: 10px;
+        border: 1px solid #ddd;
+      }
+      .job-title {
+        color: #2c5282;
+        font-size: 18px;
+        font-weight: bold;
+      }
+      .job-company {
+        color: #4a5568;
+        font-size: 16px;
+      }
+      .job-skills {
+        color: #718096;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>New Job Matches Found!</h2>
+    <p>Based on your alert criteria:</p>
+    <ul>
+      {% if criteria.industries %}
+      <li>Industries: {{ criteria.industries|join:", " }}</li>
+      {% endif %} {% if criteria.skills %}
+      <li>Skills: {{ criteria.skills|join:", " }}</li>
+      {% endif %} {% if criteria.job_titles %}
+      <li>Job Titles: {{ criteria.job_titles|join:", " }}</li>
+      {% endif %} {% if criteria.locations %}
+      <li>Locations: {{ criteria.locations|join:", " }}</li>
+      {% endif %}
+    </ul>
+
+    <div class="jobs-list">
+      {% for job in jobs %}
+      <div class="job-item">
+        <div class="job-title">{{ job.title }}</div>
+        <div class="job-company">{{ job.company }} - {{ job.location }}</div>
+        {% if job.tech_skills %}
+        <div class="job-skills">
+          Tech Skills: {{ job.tech_skills|join:", " }}
+        </div>
+        {% endif %}
+        <a href="{{ job.job_link }}">View Job</a>
+      </div>
+      {% endfor %}
+    </div>
+  </body>
+</html>

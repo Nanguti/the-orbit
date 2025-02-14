@@ -1,0 +1,44 @@
+# Ignore Django and Python-related files
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.db
+*.sqlite3
+*.log
+*.pot
+*.py[cod]
+*.coverage
+*.hypothesis/
+*.tox/
+*.nox/
+*.coverage
+*.pytest_cache/
+*.coverage
+*.vscode/
+.env
+
+# Ignore Next.js build and node_modules files
+/node_modules/
+/.next/
+/out/
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.log
+
+# Ignore Django-specific settings and migrations (if not needed)
+base/*.sqlite3
+base/migrations/
+
+# Ignore the virtual environment folder (if used)
+venv/
+.env/
+
+# Ignore any other IDE/editor folders (e.g., VS Code, JetBrains)
+.vscode/
+.idea/
+
+# Ignore .env files that store sensitive information
+.env
